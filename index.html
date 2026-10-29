@@ -1,311 +1,273 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CampusX-IoT Diagnostics Lab</title>
-    
+    <title>CampusX - Smart Lab Telemetry</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="style.css">
-
 </head>
 <body>
+
     <div class="app-container">
-
         <aside class="sidebar">
-    <div class="logo-section">
-        <i data-lucide="radio" class="logo-icon"></i>
-        <div class="logo-text">
-            <h2>CampusX</h2>
-            <span>IOT DIAGNOSTICS LAB</span>
-        </div>
-    </div>
+            <div class="logo-section">
+                <i data-lucide="radio" class="logo-icon"></i>
+                <div class="logo-text">
+                    <h2>CampusX</h2>
+                    <span>SMART LAB TELEMETRY</span>
+                </div>
+            </div>
 
-    <nav class="sidebar-nav">
-        <span class="nav-label">OPERATIONS</span>
-        <a href="#" class="nav-item active">
-            <i data-lucide="layout-dashboard"></i>
-            <span>Dashboard</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i data-lucide="cpu"></i>
-            <span>Devices</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i data-lucide="triangle-alert"></i>
-            <span>Alerts</span>
-            <span class="badge">3</span>
-        </a>
-        <a href="" class="nav-item">
-            <i data-lucide="sliders"></i>
-            <span>Control Panel</span>
-        </a>
-        <a href="#" class="nav-item">
-            <i data-lucide="settings"></i>
-            <span>Settings</span>
-        </a>
-    </nav>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item active">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="flask-conical"></i>
+                    <span>Labs</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="cpu"></i>
+                    <span>Devices</span>
+                </a>
+                <a href="alerts.html" class="nav-item">
+                    <i data-lucide="triangle-alert"></i>
+                    <span>Alerts</span>
+                </a>
+                <a href="control-panel.html" class="nav-item">
+                    <i data-lucide="sliders"></i>
+                    <span>Control Panel</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
 
-    <div class="sidebar-footer">
-        <div class="status-indicator">
-            <span class="status-dot green"></span>
-            <span>MQTT Connected</span>
-            <span class="latency">14ms</span>
-        </div>
-    </div>
-</aside>
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot blue"></span>
+                    <div>
+                        <small>EDGE NODE SYNC</small>
+                        <p>Gateway v2.41</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- المحتوى الرئيسي (Main Content) -->
         <main class="main-content">
-            
+            <!-- الشريط العلوي -->
             <header class="top-header">
-                <div class="breadcrumb">
-                    <span>Campus</span>
-                    <i data-lucide="chevron-right"></i>
-                    <strong>Lab Room 1</strong>
-                    <span class="live-pill">
-                        <span class="pulse-dot"></span> Live Telemetry
-                    </span>
+                <div class="header-left">
+                    <span class="header-title">CampusX <span>SMART LAB TELEMETRY</span></span>
+                    <span class="status-pill"><span class="dot green"></span> MQTT: Online</span>
+                    <span class="status-pill"><span class="dot blue"></span> DB: Connected</span>
                 </div>
 
-                <div class="search-bar">
-                    <i data-lucide="search"></i>
-                    <input type="text" placeholder="Search telemetry, devices, parameters...">
-                </div>
-
-                <div class="user-profile">
-                    <button class="icon-btn">
-                        <i data-lucide="bell"></i>
-                    </button>
-                    <div class="user-info">
-                        <strong>Dr. Lamia</strong>
-                        <small>Lab Administrator</small>
-                    </div>
-                    <div class="avatar">
-                        <i data-lucide="user"></i>
-                    </div>
+                <div class="header-right">
+                    <select class="lab-select">
+                        <option>Lab 1 - Main Room</option>
+                        <option>Lab 2 - Cleanroom Suite</option>
+                        <option>Lab 3 - Chemical Analytics</option>
+                        <option>Lab 4 - Materials Testing</option>
+                    </select>
+                    <button class="icon-btn"><i data-lucide="grid"></i></button>
+                    <div class="avatar"><i data-lucide="user"></i></div>
                 </div>
             </header>
-            <section class="dashboard-header">
-                <div class="title-area">
-                    <h1>Lab Monitoring Overview</h1>
-                    <div class="status-tags">
-                        <span class="badge-tag green-bg">Live Feed • Updated just now</span>
-                        <span class="sub-info">ZONE: <strong>Biochem-A</strong> / GATEWAY: <strong>GW-US915-04</strong> / <span class="text-green">ALL SENSORS STABLE</span></span>
+
+            <!-- كروت الإحصائيات الأربعة (KPIs) -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span>TOTAL LABS</span>
+                        <i data-lucide="flask-conical"></i>
+                    </div>
+                    <div class="kpi-body">
+                        <h2>4</h2>
+                        <span class="subtext">Active research wings</span>
                     </div>
                 </div>
 
-                <div class="action-controls">
-                    <div class="time-filter">
-                        <button class="btn-filter">Current</button>
-                        <button class="btn-filter">Last Hour</button>
-                        <button class="btn-filter active">1 Day</button>
-                        <button class="btn-filter">1 Week</button>
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span>TOTAL DEVICES</span>
+                        <i data-lucide="wifi"></i>
                     </div>
-                    <button class="btn-secondary">
-                        <i data-lucide="download"></i> Export Data
-                    </button>
-                    <button class="btn-primary">
-                        <i data-lucide="plus"></i> Add Widget
-                    </button>
-                </div>
-            </section>
-            <div class="dashboard-grid">
-                <div class="card env-card">
-                    <div class="card-header">
-                        <span class="card-subtitle">ENVIRONMENTAL TELEMETRY</span>
-                        <i data-lucide="thermometer" class="card-icon"></i>
-                    </div>
-                    <h3>Room Temperature</h3>
-                    <div class="temp-display">
-                        <span class="temp-value">24.0</span>
-                        <span class="temp-unit">°C</span>
-                    </div>
-                    <div class="status-badge green">
-                        <i data-lucide="check-circle-2"></i> Normal (Target: 22°C - 25°C)
-                    </div>
-                    <hr class="card-divider">
-                    <div class="humidity-row">
-                        <span><i data-lucide="droplets"></i> Relative Humidity</span>
-                        <strong>48% RH</strong>
-                    </div>
-                    <div class="toggle-row">
-                        <div class="toggle-text">
-                            <strong>AC Auto-Regulation</strong>
-                            <small>Closed-loop sensor control</small>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="ac-toggle" checked>
-                            <span class="slider"></span>
-                        </label>
+                    <div class="kpi-body">
+                        <h2>24</h2>
+                        <span class="subtext">23 online • 1 standby</span>
                     </div>
                 </div>
 
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span>AVG TEMP</span>
+                        <i data-lucide="thermometer"></i>
+                    </div>
+                    <div class="kpi-body">
+                        <h2>24.6°C <span class="badge-tag green">Nominal</span></h2>
+                        <span class="subtext">Optimal band 22–25°C</span>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-header">
+                        <span>UNREAD ALERTS</span>
+                        <i data-lucide="bell"></i>
+                    </div>
+                    <div class="kpi-body">
+                        <h2>5 <span class="badge-tag red">Action Req</span></h2>
+                        <span class="subtext">2 critical • 3 warning</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم الرسم البياني + Recent Activity -->
+            <div class="content-split">
+                <!-- الرسم البياني الرئيسي -->
                 <div class="card chart-card">
-                    <div class="card-header">
+                    <div class="chart-header">
                         <div>
-                            <span class="card-subtitle">REAL-TIME TRAJECTORY</span>
-                            <h3>Temperature Trend Chart</h3>
+                            <h3>Temperature & Humidity Trends</h3>
+                            <p>24-Hour telemetry stream - Lab 1 - Main Room</p>
                         </div>
-                        <span class="cycle-pill">24-Hour Cycle</span>
+                        <div class="chart-controls">
+                            <span class="legend-item"><span class="dot blue"></span> Temp (°C)</span>
+                            <span class="legend-item"><span class="dot purple"></span> Humidity (% RH)</span>
+                            <div class="time-btn-group">
+                                <button class="time-btn">6H</button>
+                                <button class="time-btn">12H</button>
+                                <button class="time-btn active">24H</button>
+                                <button class="time-btn">7D</button>
+                            </div>
+                        </div>
                     </div>
                     <div class="chart-container">
-                        <canvas id="tempChart"></canvas>
+                        <canvas id="telemetryChart"></canvas>
                     </div>
                 </div>
 
-                <div class="card energy-card">
-                    <div class="card-header">
-                        <span class="card-subtitle">SUBSTATION METERING</span>
-                        <i data-lucide="zap" class="card-icon text-green"></i>
+                <!-- النشاط الأخير (Recent Activity) -->
+                <div class="card activity-card">
+                    <div class="activity-header">
+                        <h3>Recent Activity</h3>
+                        <a href="#" class="view-all">View all ></a>
                     </div>
-                    <h3>Energy Consumption</h3>
-                    <div class="energy-display">
-                        <span class="energy-value">3.2</span>
-                        <span class="energy-unit">kW</span>
-                    </div>
-                    <div class="trend-badge green">
-                        <i data-lucide="arrow-down-right"></i> -11% vs yesterday
-                    </div>
-                    <div class="energy-details">
-                        <div class="detail-row">
-                            <span>Daily Total Usage</span>
-                            <strong>24.8 kWh</strong>
-                        </div>
-                        <div class="detail-row">
-                            <span>Sub-Circuit</span>
-                            <strong>Rail A • Normal</strong>
-                        </div>
-                        <div class="detail-row">
-                            <span>Peak Draw Limit</span>
-                            <strong>3.2 / 5.0 kW (64%)</strong>
+                    <p class="sub-muted">Last 3 incident notifications</p>
+
+                    <div class="activity-list">
+                        <div class="activity-item red">
+                            <div class="act-title">
+                                <strong>High Temp Warning</strong>
+                                <span class="act-time">3m ago</span>
+                            </div>
+                            <small>Chamber A (Incubator #02)</small>
+                            <span class="act-val red-text">31.8°C Threshold: 28.0°C</span>
                         </div>
 
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 64%;"></div>
+                        <div class="activity-item purple">
+                            <div class="act-title">
+                                <strong>Energy Surge Spike</strong>
+                                <span class="act-time">28m ago</span>
+                            </div>
+                            <small>HVAC Fan Unit 04</small>
+                            <span class="act-val purple-text">6.2 kW Limit: 4.5 kW</span>
                         </div>
+
+                        <div class="activity-item blue">
+                            <div class="act-title">
+                                <strong>Fume Hood Airflow Low</strong>
+                                <span class="act-time">1h ago</span>
+                            </div>
+                            <small>Fume Hood Bay 3</small>
+                            <span class="act-val blue-text">0.35 m/s Nominal: 0.50 m/s</span>
+                        </div>
+                    </div>
+
+                    <div class="activity-footer">
+                        <span>• Syslog sync nominal</span>
+                        <button class="btn-text"><i data-lucide="check"></i> Acknowledge All</button>
                     </div>
                 </div>
-
-                <div class="card nodes-card">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-subtitle">MESH TOPOLOGY</span>
-                            <h3>Active Nodes</h3>
-                        </div>
-                        <span class="online-count"><strong>5 / 6</strong> online</span>
-                    </div>
-                    
-                    <ul class="nodes-list">
-                        <li class="node-item">
-                            <span class="node-name"><span class="dot green"></span> <strong>Node 01</strong> Chamber A</span>
-                            <span class="node-status synced">Synced</span>
-                        </li>
-                        <li class="node-item">
-                            <span class="node-name"><span class="dot green"></span> <strong>Node 02</strong> Incubator #3</span>
-                            <span class="node-status synced">Synced</span>
-                        </li>
-                        <li class="node-item">
-                            <span class="node-name"><span class="dot green"></span> <strong>Node 03</strong> Airflow Duct</span>
-                            <span class="node-status synced">Synced</span>
-                        </li>
-                        <li class="node-item">
-                            <span class="node-name"><span class="dot green"></span> <strong>Node 04</strong> Cold Storage</span>
-                            <span class="node-status synced">Synced</span>
-                        </li>
-                        <li class="node-item">
-                            <span class="node-name"><span class="dot green"></span> <strong>Node 05</strong> Power Bus B</span>
-                            <span class="node-status synced">Synced</span>
-                        </li>
-                        <li class="node-item standby">
-                            <span class="node-name"><span class="dot red"></span> <strong>Node 06</strong> Fume Hood B</span>
-                            <span class="node-status warning">Standby Sync</span>
-                        </li>
-                    </ul>
-
-                    <div class="card-footer-info">
-                        <span>Avg Latency: <strong>24ms</strong></span>
-                        <span>LoRaWAN 915MHz</span>
-                    </div>
-                </div>
-
-                <div class="card hvac-card">
-                    <div class="card-header">
-                        <div>
-                            <span class="card-subtitle">SUBSYSTEM DIAGNOSTICS</span>
-                            <h3>HVAC Control Panel</h3>
-                            <small class="sub-text">Climate control and atmospheric regulation loop for Lab Room 1</small>
-                        </div>
-                        <div class="hvac-status">
-                            <span>Fan: <strong>Auto-Cycling</strong></span>
-                            <span>Compressor: <strong>Idle</strong></span>
-                        </div>
-                    </div>
-
-                    <div class="hvac-sliders">
-                        <div class="slider-group">
-                            <div class="slider-label">
-                                <span><i data-lucide="snowflake"></i> Cooling Setpoint Threshold</span>
-                                <strong class="val-blue">22.0°C</strong>
-                            </div>
-                            <input type="range" min="18" max="28" value="22" class="range-slider blue">
-                            <div class="range-limits">
-                                <span>18.0°C (Min)</span>
-                                <span>Target: 22.0°C</span>
-                                <span>28.0°C (Max)</span>
-                            </div>
-                        </div>
-
-                        <div class="slider-group">
-                            <div class="slider-label">
-                                <span><i data-lucide="flame"></i> Heating Setpoint Threshold</span>
-                                <strong class="val-red">25.0°C</strong>
-                            </div>
-                            <input type="range" min="18" max="28" value="25" class="range-slider red">
-                            <div class="range-limits">
-                                <span>18.0°C (Min)</span>
-                                <span>Target: 25.0°C</span>
-                                <span>28.0°C (Max)</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="fan-speed-section">
-                        <span><i data-lucide="fan"></i> Fan Ventilation Speed</span>
-                        <div class="btn-group">
-                            <button class="btn-option">Low (30%)</button>
-                            <button class="btn-option active">Auto (65%)</button>
-                            <button class="btn-option">High (100%)</button>
-                        </div>
-                    </div>
-
-                    <div class="hvac-footer">
-                        <span class="safety-text"><i data-lucide="shield-check"></i> Safety Interlock armed: Fail-safe vent open on signal loss</span>
-                        <div class="hvac-actions">
-                            <button class="btn-secondary">Reset to Defaults</button>
-                            <button class="btn-primary"><i data-lucide="save"></i> Save & Apply Thresholds</button>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            <footer class="bottom-bar">
-                <span>BAROMETRIC: <strong>1013.25 hPa</strong></span>
-                <span>AIR QUALITY (VOC): <strong>18 ppb (Optimal)</strong></span>
-                <span>DIFFERENTIAL PRESSURE: <strong>+12.4 Pa</strong></span>
-                <span class="security-tag">SECURITY TOKENS: VALID • TLS 1.3 ENCRYPTED</span>
-            </footer>
 
+            <!-- نظرة عامة على بقية المعامل (Other Labs Overview) -->
+            <section class="labs-overview-section">
+                <div class="section-header">
+                    <div>
+                        <h3>Other Labs Overview</h3>
+                        <p>Real-time facility telemetry summary across adjacent wings</p>
+                    </div>
+                    <div class="controls">
+                        <button class="btn-outline"><i data-lucide="filter"></i> Filter</button>
+                        <button class="btn-outline"><i data-lucide="rotate-cw"></i> Refresh</button>
+                    </div>
+                </div>
+
+                <div class="labs-grid">
+                    <!-- معمل 2 -->
+                    <div class="lab-card">
+                        <div class="lab-card-top">
+                            <span><i data-lucide="flask-conical"></i> Lab 2 - Cleanroom Suite</span>
+                            <span class="status-badge green">Optimal</span>
+                        </div>
+                        <div class="lab-card-body">
+                            <div class="lab-temp">21.4°C</div>
+                            <span class="lab-sub">18 Devices Online</span>
+                        </div>
+                        <div class="lab-card-footer">
+                            <span>Humidity: 42% RH</span>
+                            <svg class="mini-sparkline" viewBox="0 0 100 20">
+                                <path d="M0 10 Q 25 5, 50 12 T 100 8" stroke="#3b82f6" fill="none" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- معمل 3 >
+                    <div class="lab-card">
+                        <div class="lab-card-top">
+                            <span><i data-lucide="flask-conical"></i> Lab 3 - Chemical Analytics</span>
+                            <span class="status-badge purple">Warning</span>
+                        </div>
+                        <div class="lab-card-body">
+                            <div class="lab-temp">23.8°C</div>
+                            <span class="lab-sub">13 Devices (1 Off)</span>
+                        </div>
+                        <div class="lab-card-footer">
+                            <span>Air Quality: VOC: 14 ppb</span>
+                            <svg class="mini-sparkline" viewBox="0 0 100 20">
+                                <path d="M0 15 Q 25 8, 50 18 T 100 5" stroke="#a855f7" fill="none" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- معمل 4 -->
+                    <div class="lab-card">
+                        <div class="lab-card-top">
+                            <span><i data-lucide="flask-conical"></i> Lab 4 - Materials Testing</span>
+                            <span class="status-badge blue">Nominal</span>
+                        </div>
+                        <div class="lab-card-body">
+                            <div class="lab-temp">25.1°C</div>
+                            <span class="lab-sub">16 Devices Online</span>
+                        </div>
+                        <div class="lab-card-footer">
+                            <span>Differential Press: +15 Pa</span>
+                            <svg class="mini-sparkline" viewBox="0 0 100 20">
+                                <path d="M0 10 Q 25 12, 50 6 T 100 10" stroke="#3b82f6" fill="none" stroke-width="2"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
     </div>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script src="script.js"></script>
-    <script>
-
-        lucide.createIcons();
-    </script>
-
 </body>
 </html>
