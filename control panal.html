@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusX - HVAC Control Panel</title>
+
+    <!-- Google Fonts & Lucide Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- ربط ملف التنسيق الموحد -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- ==================== القائمة الجانبية (Sidebar) ==================== -->
+        <aside class="sidebar">
+            <div class="logo-section">
+                <i data-lucide="radio" class="logo-icon"></i>
+                <div class="logo-text">
+                    <h2>CampusX</h2>
+                    <span>TELEMETRY HUB</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <i data-lucide="layout-dashboard"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="cpu"></i>
+                    <span>Devices</span>
+                </a>
+                <a href="alerts.html" class="nav-item">
+                    <i data-lucide="triangle-alert"></i>
+                    <span>Alerts</span>
+                    <span class="badge">3</span>
+                </a>
+                <a href="control-panel.html" class="nav-item active">
+                    <i data-lucide="sliders"></i>
+                    <span>Control Panel</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot green"></span>
+                    <span>NODE SYNCED</span>
+                    <span class="latency">192.168.1.42</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- ==================== المحتوى الرئيسي (Main Content) ==================== -->
+        <main class="main-content">
+            
+            <!-- الشريط العلوي (بدون بحث) -->
+            <header class="top-header">
+                <div class="breadcrumb">
+                    <span>Operations</span>
+                    <i data-lucide="chevron-right"></i>
+                    <span>Climate & Ventilation</span>
+                    <i data-lucide="chevron-right"></i>
+                    <strong>Zone 4B Telemetry</strong>
+                </div>
+
+                <div class="header-right-group">
+                    <span class="status-pill-sync">
+                        <span class="pulse-dot green"></span> ONLINE • SYNCED &nbsp;<strong>14ms latency</strong>
+                    </span>
+                    <button class="btn-refresh"><i data-lucide="rotate-cw" style="width:14px;height:14px;"></i> Refresh</button>
+                    
+                    <div class="user-profile">
+                        <div class="user-info">
+                            <strong>Dr. Lamia</strong>
+                            <small>Lab Administrator</small>
+                        </div>
+                        <div class="avatar"><i data-lucide="user"></i></div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- عنوان الصفحة الرئيسي -->
+            <div class="page-title-row">
+                <div class="title-with-tag">
+                    <h1>HVAC Control Panel</h1>
+                    <span class="sub-station-tag">CHILLER-STATION-04</span>
+                </div>
+            </div>
+
+            <!-- ==================== القسم الأول: Current Status & Quick Actions ==================== -->
+            <div class="control-grid-top">
+                
+                <!-- بطاقة الحالة الحالية -->
+                <div class="card hvac-status-card">
+                    <div class="card-header-flex">
+                        <div class="card-title-icon">
+                            <i data-lucide="activity" style="color: #38bdf8;"></i>
+                            <h3>Current Status</h3>
+                        </div>
+                        <div class="hvac-live-badge">
+                            <span class="dot green"></span> HVAC IS ON
+                        </div>
+                    </div>
+                    <p class="card-subtitle-sm">Live telemetry stream • Real-time loop</p>
+
+                    <div class="hvac-metrics-row">
+                        <div class="metric-box">
+                            <span class="m-label">CURRENT AMBIENT <i data-lucide="thermometer" style="width:12px;height:12px;"></i></span>
+                            <div class="m-value">24.0°C</div>
+                            <small class="m-sub">Sensor #T-904 (Central Core)</small>
+                        </div>
+                        <div class="metric-divider"></div>
+                        <div class="metric-box">
+                            <span class="m-label">AUTO SETPOINT TARGET <i data-lucide="target" style="width:12px;height:12px;"></i></span>
+                            <div class="m-value text-blue">22.0°C</div>
+                            <small class="m-sub">Delta gap active: -2.0°C</small>
+                        </div>
+                    </div>
+
+                    <div class="hvac-sub-stats">
+                        <div class="sub-stat-item">
+                            <span>HUMIDITY</span>
+                            <strong><i data-lucide="droplet" style="width:12px;height:12px;"></i> 48% RH</strong>
+                        </div>
+                        <div class="sub-stat-item">
+                            <span>AIRFLOW VELOCITY</span>
+                            <strong><i data-lucide="wind" style="width:12px;height:12px;"></i> 2.4 m/s</strong>
+                        </div>
+                        <div class="sub-stat-item">
+                            <span>COMPRESSOR MODE</span>
+                            <strong><i data-lucide="refresh-cw" style="width:12px;height:12px;"></i> Cycling (74%)</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- بطاقة الإجراءات السريعة (Quick Actions) -->
+                <div class="card hvac-actions-card">
+                    <div class="card-header-flex">
+                        <div class="card-title-icon">
+                            <i data-lucide="zap" style="color: #c084fc;"></i>
+                            <h3>Quick Actions</h3>
+                        </div>
+                        <span class="privilege-badge">PRIVILEGE: L2 ADMIN</span>
+                    </div>
+                    <p class="card-subtitle-sm">Operator overrides & manual system actuation</p>
+
+                    <div class="actions-buttons-grid">
+                        <button class="btn-action-card red-border">
+                            <div class="act-icon red"><i data-lucide="power"></i></div>
+                            <div class="act-text">
+                                <strong>Turn Off HVAC</strong>
+                                <small>Cut Main Blower</small>
+                            </div>
+                        </button>
+
+                        <button class="btn-action-card">
+                            <div class="act-icon gray"><i data-lucide="rotate-ccw"></i></div>
+                            <div class="act-text">
+                                <strong>Reset Defaults</strong>
+                                <small>Restore Setpoint: 22°C</small>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div class="aux-overrides-section">
+                        <span class="aux-title">FAST AUXILIARY OVERRIDES</span>
+                        <div class="aux-pills">
+                            <span class="pill-item">Vent Purge <span class="badge-status inactive">Inactive</span></span>
+                            <span class="pill-item active-bg">Eco Mode <span class="badge-status active">Active</span></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ==================== القسم الثاني: Temperature Settings & Slider ==================== -->
+            <div class="card temperature-slider-card">
+                <div class="card-header-flex">
+                    <div class="card-title-icon">
+                        <i data-lucide="thermometer-snowflake" style="color: #38bdf8;"></i>
+                        <h3>Temperature Settings</h3>
+                    </div>
+                    <div class="mode-toggles">
+                        <button class="btn-mode"><i data-lucide="sliders" style="width:12px;height:12px;"></i> Manual</button>
+                        <button class="btn-mode active"><i data-lucide="bot" style="width:12px;height:12px;"></i> Auto Regulated</button>
+                    </div>
+                </div>
+                <p class="card-subtitle-sm">Calibrate thermal comfort curve and automated PID refrigeration loops</p>
+
+                <!-- شريط التمرير (Temperature Range Slider) -->
+                <div class="slider-container-box">
+                    <div class="slider-target-badge"><i data-lucide="target" style="width:12px;height:12px;"></i> Target: 22.0°C</div>
+                    
+                    <div class="custom-range-wrapper">
+                        <input type="range" min="18" max="30" step="0.5" value="22" class="hvac-range-slider" id="tempRange">
+                        <div class="range-ticks">
+                            <span>18° C</span>
+                            <span>20° C</span>
+                            <span>22° C</span>
+                            <span>24° C</span>
+                            <span>26° C</span>
+                            <span>28° C</span>
+                            <span>30° C</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ranges-info-footer">
+                    <div class="range-box-info blue-border">
+                        <strong>Active Cooling Range</strong>
+                        <p>18°C – 24°C (Peak chiller compressor efficiency)</p>
+                        <span class="cop-val">COP 3.82</span>
+                    </div>
+                    <div class="range-box-info purple-border">
+                        <strong>Eco Thermal Range</strong>
+                        <p>25°C – 30°C (Passive convection / Low power profile)</p>
+                        <span class="cop-val">COP 4.45</span>
+                    </div>
+                </div>
+
+                <div class="pid-status-bar">
+                    <span><i data-lucide="activity" style="width:14px;height:14px;vertical-align:middle;"></i> Live Differential: <strong>-2.0°C</strong> • (Active Cooling Load: 3.8 kW)</span>
+                    <span class="pid-right">PID INTEGRATOR: <strong>STABLE • FEEDBACK LOOP 100HZ</strong></span>
+                </div>
+            </div>
+
+            <!-- ==================== القسم الثالث: Threshold Settings & System Health ==================== -->
+            <div class="control-grid-bottom">
+                
+                <!-- Threshold Settings -->
+                <div class="card">
+                    <div class="card-header-flex">
+                        <div class="card-title-icon">
+                            <i data-lucide="sliders" style="color: #38bdf8;"></i>
+                            <h3>Threshold Settings</h3>
+                        </div>
+                    </div>
+                    <p class="card-subtitle-sm">Set dynamic alerts and safety cut-off bounds</p>
+
+                    <div class="threshold-rows">
+                        <div class="thresh-item">
+                            <div>
+                                <small>MAX SAFE TEMPERATURE</small>
+                                <strong class="red-text">28.0°C UPPER CUT-OFF</strong>
+                            </div>
+                            <span class="bound-tag">Bound</span>
+                        </div>
+                        <div class="thresh-item">
+                            <div>
+                                <small>MAX PEAK ENERGY DRAW</small>
+                                <strong>4.5 kW MAX DRAW</strong>
+                            </div>
+                            <span class="bound-tag">Surge</span>
+                        </div>
+                    </div>
+
+                    <div class="thresh-notes">
+                        <p>• Auto-triggers emergency exhaust dampers</p>
+                        <p>• Grid shedding throttle enabled above this load</p>
+                    </div>
+
+                    <div class="failsafe-alert-box">
+                        <i data-lucide="shield-check" style="color: #22c55e; width:18px;height:18px;shrink:0;"></i>
+                        <small>Failsafe logic is synchronized across dual redundant hardware PLCs.</small>
+                    </div>
+                </div>
+
+                <!-- System Health -->
+                <div class="card">
+                    <div class="card-header-flex">
+                        <div class="card-title-icon">
+                            <i data-lucide="activity" style="color: #22c55e;"></i>
+                            <h3>System Health</h3>
+                        </div>
+                        <span class="health-percent-badge">100% OPERATIONAL</span>
+                    </div>
+                    <p class="card-subtitle-sm">Telemetry network backbone & gateway telemetry</p>
+
+                    <div class="health-list">
+                        <div class="health-row">
+                            <div>
+                                <strong>Edge Server</strong>
+                                <small>Node: Edge-SRV-01</small>
+                            </div>
+                            <div class="text-right">
+                                <span class="h-status green">Optimal / Connected</span>
+                                <small>12ms latency</small>
+                            </div>
+                        </div>
+
+                        <div class="health-row">
+                            <div>
+                                <strong>Database Stream</strong>
+                                <small>TimescaleDB Cluster</small>
+                            </div>
+                            <div class="text-right">
+                                <span class="h-status green">Healthy / Synced</span>
+                                <small>420 IOPS • 0 dropped</small>
+                            </div>
+                        </div>
+
+                        <div class="health-row">
+                            <div>
+                                <strong>MQTT Broker</strong>
+                                <small>Mosquitto 2.0 (SSL)</small>
+                            </div>
+                            <div class="text-right">
+                                <span class="h-status green">Active / QoS 1</span>
+                                <small>100% packet delivery</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="health-footer-info">
+                        <span><i data-lucide="clock" style="width:12px;height:12px;"></i> Last health ping: 3s ago</span>
+                        <span>Heartbeat interval: 10s</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- زر الحفظ في الأسفل -->
+            <div class="save-commit-row">
+                <button class="btn-save-commit">
+                    <i data-lucide="save"></i> Save & Commit Thresholds
+                </button>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
