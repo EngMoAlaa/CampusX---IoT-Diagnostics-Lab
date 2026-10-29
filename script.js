@@ -1,91 +1,141 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. تفعيل أيقونات Lucide
+    lucide.createIcons();
 
-    const ctx = document.getElementById('tempChart').getContext('2d');
-    
-    const tempChart = new Chart(ctx, {
+    // 2. إعداد ورسم الرسم البياني باستخدام Chart.js
+    const ctx = document.getElementById('telemetryChart').getContext('2d');
+
+    // إعداد التدرج المائي للحرارة (Temp Gradient)
+    const tempGradient = ctx.createLinearGradient(0, 0, 0, 200);
+    tempGradient.addColorStop(0, 'rgba(56, 189, 248, 0.3)');
+    tempGradient.addColorStop(1, 'rgba(56, 189, 248, 0)');
+
+    // إعداد التدرج المائي للرطوبة (Humidity Gradient)
+    const humidityGradient = ctx.createLinearGradient(0, 0, 0, 200);
+    humidityGradient.addColorStop(0, 'rgba(168, 85, 247, 0.2)');
+    humidityGradient.addColorStop(1, 'rgba(168, 85, 247, 0)');
+
+    new Chart(ctx, {
         type: 'line',
         data: {
-            labels: ['00:00', '02:00', '04:00', '06:00', '08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', 'LIVE'],
-            datasets: [{
-                label: 'Recorded Temp (°C)',
-                data: [21.5, 21.0, 21.8, 22.5, 23.0, 24.2, 25.1, 24.5, 23.8, 22.5, 22.0, 24.0],
-                borderColor: '#2563eb',
-                backgroundColor: 'rgba(37, 99, 235, 0.08)',
-                borderWidth: 2,
-                fill: true,
-                tension: 0.4,
-                pointRadius: function(context) {
-                    return context.dataIndex === context.dataset.data.length - 1 ? 6 : 2;
+            labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00'],
+            datasets: [
+                {
+                    label: 'Temp (°C)',
+                    data: [23.1, 23.5, 24.8, 25.2, 24.6, 24.1],
+                    borderColor: '#38bdf8',
+                    borderWidth: 2,
+                    backgroundColor: tempGradient,
+                    fill: true,
+                    tension: 0.4
                 },
-                pointBackgroundColor: '#2563eb'
-            }]
+                {
+                    label: 'Humidity (% RH)',
+                    data: [45, 46, 50, 49, 48.2, 47],
+                    borderColor: '#a855f7',
+                    borderWidth: 2,
+                    backgroundColor: humidityGradient,
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-                legend: { display: false },
-                tooltip: { mode: 'index', intersect: false }
+                legend: { display: false } // تم إعداد المفتاح يدويًا في الـ HTML
             },
             scales: {
                 x: {
-                    grid: { display: false },
-                    ticks: { font: { size: 10 }, color: '#64748b' }
+                    grid: { color: '#21262d' },
+                    ticks: { color: '#8b949e', font: { size: 10 } }
                 },
                 y: {
-                    min: 16,
-                    max: 28,
-                    ticks: { stepSize: 4, font: { size: 10 }, color: '#64748b' },
-                    grid: { color: '#f1f5f9' }
+                    grid: { color: '#21262d' },
+                    ticks: { color: '#8b949e', font: { size: 10 } }
                 }
             }
         }
     });
+});
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. تفعيل أيقونات Lucide العامة
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
 
-    const filterButtons = document.querySelectorAll('.btn-filter');
-    filterButtons.forEach(btn => {
+    // 2. التحكم في الوضع الليلي والنهاري (Dark/Light Mode) وحفظه في المتصفح
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        if (themeToggleBtn) themeToggleBtn.innerHTML = '<i data-lucide="sun"></i>';
+    }
+
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.innerHTML = '<i data-lucide="moon"></i>';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.innerHTML = '<i data-lucide="sun"></i>';
+            }
+            if (typeof lucide !== 'undefined') lucide.createIcons();
+        });
+    }
+
+    // 3. القائمة الجانبية للشاشات الصغيرة (Mobile Sidebar Drawer)
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const sidebar = document.querySelector('.sidebar');
+
+    if (mobileBtn && sidebar) {
+        mobileBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    }
+
+    // ==================== تفاعلات صفحة Control Panel ====================
+    const tempRange = document.getElementById('tempRange');
+    if (tempRange) {
+        tempRange.addEventListener('input', (e) => {
+            const val = e.target.value;
+            // يمكنك تحديث أي عنصر تعرض فيه القيمة الحية لشريط الحرارة هنا
+            console.log("Current Temperature Setpoint:", val);
+        });
+    }
+
+    // ==================== تفاعلات صفحة Alerts & Notifications ====================
+    // زر تحديث أو إعادة تحميل البيانات (Refresh)
+    const refreshBtns = document.querySelectorAll('.btn-refresh');
+    refreshBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-            filterButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+            btn.style.opacity = '0.6';
+            setTimeout(() => {
+                btn.style.opacity = '1';
+                alert('تم تحديث البيانات وقراءات النظام بنجاح!');
+            }, 500);
         });
     });
-    const fanButtons = document.querySelectorAll('.fan-speed-section .btn-option');
-    fanButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            fanButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+
+    // أزرار التعامل مع التنبيهات (Acknowledge / Resolve)
+    const acknowledgeButtons = document.querySelectorAll('.btn-table-primary, .btn-table-secondary, .btn-table-blue');
+    acknowledgeButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const row = e.target.closest('tr');
+            if (row) {
+                row.style.transition = 'opacity 0.3s';
+                row.style.opacity = '0.4';
+                setTimeout(() => {
+                    row.remove();
+                    alert('تم تنفيذ الإجراء وتحديث حالة التنبيه بنجاح.');
+                }, 300);
+            }
         });
     });
-
-    const coolingRange = document.querySelector('.range-slider.blue');
-    const coolingValText = document.querySelector('.val-blue');
-    if (coolingRange && coolingValText) {
-        coolingRange.addEventListener('input', (e) => {
-            coolingValText.textContent = parseFloat(e.target.value).toFixed(1) + '°C';
-        });
-    }
-
-    const heatingRange = document.querySelector('.range-slider.red');
-    const heatingValText = document.querySelector('.val-red');
-    if (heatingRange && heatingValText) {
-        heatingRange.addEventListener('input', (e) => {
-            heatingValText.textContent = parseFloat(e.target.value).toFixed(1) + '°C';
-        });
-    }
-    const saveBtn = document.querySelector('.hvac-card .btn-primary');
-    if (saveBtn) {
-        saveBtn.addEventListener('click', () => {
-            alert('تم حفظ وتطبيق حدود درجات الحرارة بنجاح على نظام Lab Room 1! 🚀');
-        });
-    }
-    const resetBtn = document.querySelector('.hvac-card .btn-secondary');
-    if (resetBtn && coolingRange && heatingRange) {
-        resetBtn.addEventListener('click', () => {
-            coolingRange.value = 22;
-            heatingRange.value = 25;
-            if (coolingValText) coolingValText.textContent = '22.0°C';
-            if (heatingValText) heatingValText.textContent = '25.0°C';
-            alert('تم استعادة الإعدادات الافتراضية بنجاح.');
-        });
-    }
 });
